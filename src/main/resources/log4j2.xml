@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <!-- Define custom levels before using them for filtering below. -->
+    <CustomLevels>
+        <CustomLevel name="VIOLATION" intLevel="150" />
+        <CustomLevel name="REQUEST" intLevel="350" />
+    </CustomLevels>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-9level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="MyFile" fileName="logs/győrfi_pál.log">
+            <PatternLayout pattern="%d %-9level %logger{36} - %msg%n"/>
+        </File>
+        <RollingFile name="MyRollingFileAppender" fileName="logs/messages.log"
+            filePattern="logs/messages%i.log.zip">
+            <PatternLayout pattern="%d %-9level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1 KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="trace">
+            <AppenderRef ref="Console" level="info" />
+            <AppenderRef ref="MyFile" level="VIOLATION" />
+            <AppenderRef ref="MyRollingFileAppender" />
+        </Root>
+    </Loggers>
+</Configuration>
